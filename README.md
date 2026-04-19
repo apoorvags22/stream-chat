@@ -11,7 +11,7 @@ A real-time AI chat interface built with Angular 21 and Groq API, featuring toke
 
 ## What I learned building this
 
-Streaming AI responses chunk by chunk required bypassing Angular's default change detection. The fix was ChangeDetectorRef — something I've used in enterprise apps before, but never in the context of AI output.
+Streaming AI responses chunk by chunk required bypassing Angular's default change detection. The fix was ChangeDetectorRef which is something I've used in enterprise apps before, but never in the context of AI output.
 
 ## Setup
 
