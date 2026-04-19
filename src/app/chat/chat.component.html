@@ -1,0 +1,52 @@
+<div class="chat-wrapper">
+  <div class="chat-container">
+    <div class="chat-header">
+      <div class="header-dot"></div>
+      <span>Stream Chat</span>
+      <div class="header-status">online</div>
+    </div>
+
+    <div class="messages-container" #messagesContainer>
+      <div class="empty-state" *ngIf="messages.length === 0">
+        <div class="empty-icon">✦</div>
+        <p>Start a conversation</p>
+      </div>
+
+      <div
+        *ngFor="let message of messages"
+        class="message-wrapper"
+        [class.user-wrapper]="message.role === 'user'"
+        [class.assistant-wrapper]="message.role === 'assistant'"
+      >
+        <div
+          class="message"
+          [class.user-message]="message.role === 'user'"
+          [class.assistant-message]="message.role === 'assistant'"
+        >
+          <span class="message-text" [innerHTML]="renderMarkdown(message.content)"></span>
+          <span class="cursor" *ngIf="message.isStreaming">▋</span>
+        </div>
+      </div>
+
+      <div class="typing-indicator" *ngIf="isLoading && messages[messages.length-1]?.content === ''">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <textarea
+        [(ngModel)]="userInput"
+        (keydown)="onKeyDown($event)"
+        placeholder="Type a message..."
+        rows="1"
+        [disabled]="isLoading"
+      ></textarea>
+      <button (click)="sendMessage()" [disabled]="isLoading || !userInput.trim()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
